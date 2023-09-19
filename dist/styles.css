@@ -1,0 +1,133 @@
+* {
+  box-sizing: content-box;
+}
+body {
+  font-family: 'Space Grotesk', sans-serif;
+} 
+
+.invisible {
+  display:none;
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+#content {
+  height: 100%;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgb(191, 188, 188);
+  padding: 0 0 50px 0;
+}
+
+#button {
+  display: flex;
+  justify-content: center;
+}
+
+#add-button {
+  color: rgb(255, 255, 255);
+  font-size: 15px;
+  margin-top: 70%;
+  width: 90px;
+  height: 30px;
+  border-radius: 30px;
+  background-color: rgb(65, 109, 218) ;
+}
+
+nav {
+  height: 40px;
+  background-color: rgb(234, 160, 172);
+  font-size: 25px;
+  padding: 3px 0 3px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#content {
+  display: grid;
+  grid-template-columns: 14em 4fr;
+  grid-template-rows: calc(100% - 40px) 40px;
+}
+
+.category {
+  display: flex;
+  flex-direction: column;
+}
+
+#sidebar {
+  font-size: 30px;
+  padding: 13px 0 0 13px;
+}
+
+.project-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 24px;
+}
+
+#project-list-item {
+  font-size: 9px;
+}
+
+.list {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+#list-item {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid black;
+  height: 20px;
+  width: 100%;
+}
+
+#left-list-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+#right-list-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+footer {
+  height: 40px;
+  position: absolute;
+  bottom: 0;
+  background-color: rgb(65, 109, 218);
+  width: 100vw;
+  display: flex;
+  color: white;
+  justify-content: center;
+  align-items: center;
+}
+
+#newListing {
+  width: 400px;
+  height: 400px;
+  background-color: rgb(109, 181, 229);
+  
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  
+  margin: auto;
+
+}

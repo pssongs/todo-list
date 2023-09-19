@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <nav>To Do List</nav>
+      <div id="content">
+          <div class="options">
+            <div class="category">
+              <div id="sidebar">Home</div>
+              <div id="sidebar">Today</div>
+              <div id="sidebar">Week</div>
+              <div id="sidebar">Projects</div>
+              <div class="project-list">
+                <div id="gym project-list-item">Gym</div>
+              </div>
+              <div id="sidebar">Notes</div>
+              <div id="button">
+                <button type="button" id="add-button">Add</button>
+              </div>
+            </div>             
+          </div>          
+        <div class="list">
+          <div id="list-item">
+            <div id="left-list-item">
+              <div id="checkbox"></div>
+              <div id="item-description">swim</div>
+            </div>
+            <div id="right-list-item">
+              <div id="details">DETAILS</div>
+              <div id="date">Oct 14</div>
+              <div id="edit">E</div>
+              <div id="delete" onclick="this.parentNode.parentNode.remove()">D</div>
+            </div>
+          </div>
+        </div>
+        <footer>Created by Paul Song</footer>
+      </div>
+      <div id="newListing" class="invisible">
+        <input type="text" placeholder="Title" id="title">
+        <input type="text" placeholder="Description" id="description">
+        <input type="date" id="date">
+        <div>
+          <input type="radio" id="low" name="priority" value="low">
+          <label for="low">Low</label>
+        </div>
+        <div>
+          <input type="radio" id="mid" name="priority" value="mid">
+          <label for="mid">Mid</label>
+        </div>
+        <div>
+          <input type="radio" id="high" name="priority" value="high">
+          <label for="high">High</label>
+        </div>
+
+        <div id="close">X</div>
+        <submit ></submit>
+      </div>
+    <script src="main.js"></script>
+  </body>
+</html>
