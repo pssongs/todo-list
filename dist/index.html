@@ -27,12 +27,13 @@
         <div class="list">
           <div id="list-item">
             <div id="left-list-item">
-              <div id="checkbox"></div>
+              <div id="checkbox">[]</div>
               <div id="item-description">swim</div>
             </div>
             <div id="right-list-item">
               <div id="details">DETAILS</div>
-              <div id="date">Oct 14</div>
+              <div id="date-item">2023-10-14</div>
+              <div id="priority-item">Mid</div>
               <div id="edit">E</div>
               <div id="delete" onclick="this.parentNode.parentNode.remove()">D</div>
             </div>
@@ -41,24 +42,46 @@
         <footer>Created by Paul Song</footer>
       </div>
       <div id="newListing" class="invisible">
-        <input type="text" placeholder="Title" id="title">
-        <input type="text" placeholder="Description" id="description">
-        <input type="date" id="date">
-        <div>
-          <input type="radio" id="low" name="priority" value="low">
-          <label for="low">Low</label>
-        </div>
-        <div>
-          <input type="radio" id="mid" name="priority" value="mid">
-          <label for="mid">Mid</label>
-        </div>
-        <div>
-          <input type="radio" id="high" name="priority" value="high">
-          <label for="high">High</label>
-        </div>
-
+        <form id="form">
+          <input type="text" placeholder="Title" id="title" name="title" required>
+          <input type="text" placeholder="Description" id="description" name="description" required>
+          <input type="date" id="date" name="date" required>
+          <div>
+            <input type="radio" id="low" name="priority" value="Low"  required>
+            <label for="low">Low</label>
+          </div>
+          <div>
+            <input type="radio" id="mid" name="priority" value="Mid">
+            <label for="mid">Mid</label>
+          </div>
+          <div>
+            <input type="radio" id="high" name="priority" value="High">
+            <label for="high">High</label>
+          </div>
+          <input type="submit" id="submitbtn">
+        </form>
         <div id="close">X</div>
-        <submit ></submit>
+      </div>
+      <div id="editDiv" class="invisible">
+        <form id="editForm">
+          <input type="text" placeholder="Title" id="title" name="title" required>
+          <input type="text" placeholder="Description" id="description" name="description" required>
+          <input type="date" id="date" name="date" required>
+          <div>
+            <input type="radio" id="low" name="priority" value="Low"  required>
+            <label for="low">Low</label>
+          </div>
+          <div>
+            <input type="radio" id="mid" name="priority" value="Mid">
+            <label for="mid">Mid</label>
+          </div>
+          <div>
+            <input type="radio" id="high" name="priority" value="High">
+            <label for="high">High</label>
+          </div>
+          <input type="submit" id="submitbtn">
+        </form>
+        <div id="editClose">X</div>
       </div>
     <script src="main.js"></script>
   </body>

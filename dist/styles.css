@@ -81,8 +81,9 @@ nav {
 
 .list {
   display: flex;
-  justify-content: center;
+  align-items: center;
   padding: 10px;
+  flex-direction: column;
 }
 
 #list-item {
@@ -117,7 +118,7 @@ footer {
   align-items: center;
 }
 
-#newListing {
+#newListing, #editDiv {
   width: 400px;
   height: 400px;
   background-color: rgb(109, 181, 229);
