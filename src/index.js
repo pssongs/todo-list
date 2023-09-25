@@ -1,185 +1,88 @@
-const addForm = document.getElementById("newListing")
 const addBtn = document.getElementById('add-button')
-const closeBtn = document.getElementById('close')
-const editClose = document.getElementById('editClose')
-const form = document.getElementById('form')
-const list = document.querySelector('.list')
-const editForm = document.getElementById('editForm')
-var editBtn = [...document.querySelectorAll("#edit")]
-var num = 1
-var currentEdit 
+const addForm = document.getElementById('newListing')
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault()
-  createListing()
-  close(form.parentNode)
-  form.reset()
-  editBtn = [...document.querySelectorAll("#edit")]
-  console.log(editBtn)
+class Library {
+  constructor(){
+    this.listing = []
+  }
 
-  checkForEdit()
-})
+  addListing(newListing){
+    this.listing.push(newListing)
+  }
 
-editForm.addEventListener('submit', (e) => {
-  e.preventDefault()
-  let element = document.querySelector(`[data-num='${currentEdit}']`)
-  let newListing = createEditListing(editedValues(e.target))
-  element.replaceWith(newListing)
-  close(editForm.parentNode)
-  editForm.reset()
-  editBtn = [...document.querySelectorAll("#edit")]
-  console.log(editBtn)
+  getListing(id) {
+    return this.listing.find((todo) => todo.id === id)
+  }
 
-  checkForEdit()
-} )
-
-function checkForEdit() {
-  editBtn.forEach(btn => {
-    btn.addEventListener('click',(e) => {
-      showForm(editForm.parentNode)
-      currentEdit = e.target.parentNode.parentNode.getAttribute("data-num")
-      console.log(btn)
-    })
-    
-  });
+  removeListing(id) {
+    return this.listing.filter((todo) => todo.id !== id)
+  }
 }
 
-function createEditListing(arr) {
-  const title = document.createElement('div')
-  const description = document.createElement('div')
-  description.textContent = "DETAILS"
-  const longDetails = document.createElement('div')
-  const date = document.createElement('div')
-  const priority = document.createElement('div')
-  const listItem = document.createElement('div')
-  const left = document.createElement('div')
-  const right = document.createElement('div')
-  const checkBox = document.createElement('div')
-  //edit Button
-  const edit = document.createElement('div')
-  edit.textContent = "E"
-  //delete Button
-  const dlt = document.createElement('div')
-  dlt.textContent = "D"
-
-  title.textContent = arr[0]
-  longDetails.textContent = arr[1]
-  date.textContent = arr[2]
-  priority.textContent = arr[3]
-  checkBox.textContent = '[]'
-
-  title.setAttribute('id', "item-description")
-  description.setAttribute('id', 'details')
-  longDetails.setAttribute('id','long-details')
-  date.setAttribute('id','date-item')
-  priority.setAttribute('id','priority-item')
-  listItem.setAttribute('id','list-item')
-  left.setAttribute('id','left-list-item')
-  right.setAttribute('id','right-list-item')
-  checkBox.setAttribute('id','checkbox')
-  edit.setAttribute('id','edit')
-  dlt.setAttribute('id','delete')
-  dlt.setAttribute('onclick','this.parentNode.parentNode.remove()')
-  listItem.setAttribute('data-num',`${currentEdit}`)
-
-  left.appendChild(checkBox)
-  left.appendChild(title)
-
-  right.appendChild(description)
-  right.appendChild(date)
-  right.appendChild(priority)
-  right.appendChild(edit)
-  right.appendChild(dlt)
-
-  listItem.appendChild(left)
-  listItem.appendChild(right)
-
-
-  return listItem
+class Listing{
+  constructor(title,detail,date,priority,id){
+    this.title = title
+    this.detail = detail
+    this.date = date
+    this.priority = priority
+    this.id = id
   }
+
+  getTitle() {
+    return this.title
+  }
+
+  getDetail(){
+    return this.detail
+  }
+
+  getDate() {
+    return this.date
+  }
+
+  getPriority() {
+    return this.priority
+  }
+
+  getId(){
+    return this.id
+  }
+
+  setTitle(title) {
+    this.title = title
+  }
+
+  setDetail(detail){
+    this.detail = detail
+  }
+
+  setDate(date){
+    this.date = date
+  }
+
+  setPriority(priority){
+    this.priority = priority
+  }
+}
 
 addBtn.addEventListener('click', () => {
-  showForm(addForm)
+  addForm.classList.remove('invisible')
 })
 
-editClose.addEventListener('click', () => {
-  close(editForm.parentNode)
+addForm.addEventListener('submit', (e) => {
+  e.preventDefault()
+  createListing(e.target)
 })
 
-closeBtn.addEventListener('click', () => {
-  close(addForm)
-})
+function createListing(values){
+  const title = values[0].value
+  const description = values[1].value
+  const date = values[2].value
+  const priority = findChecked([...values])
 
-function showForm(form) {
-  form.classList.remove("invisible")
-}
+  const activity = new Listing(title,description,date,priority,Date.now())
+  toDoListing.addListing(activity)
 
-function close(theForm) {
-  theForm.classList.add("invisible")
-}
-
-function createListing() {
-  const title = document.createElement('div')
-  const description = document.createElement('div')
-  description.textContent = "DETAILS"
-  const longDetails = document.createElement('div')
-  const date = document.createElement('div')
-  const priority = document.createElement('div')
-  const listItem = document.createElement('div')
-  const left = document.createElement('div')
-  const right = document.createElement('div')
-  const checkBox = document.createElement('div')
-  //edit Button
-  const edit = document.createElement('div')
-  edit.textContent = "E"
-  //delete Button
-  const dlt = document.createElement('div')
-  dlt.textContent = "D"
-
-  title.textContent = document.getElementById('title').value
-  longDetails.textContent = document.getElementById('description').value
-  date.textContent = document.getElementById('date').value
-  priority.textContent = document.querySelector('input[name="priority"]:checked').value;
-  checkBox.textContent = '[]'
-
-  title.setAttribute('id', "item-description")
-  description.setAttribute('id', 'details')
-  longDetails.setAttribute('id','long-details')
-  date.setAttribute('id','date-item')
-  priority.setAttribute('id','priority-item')
-  listItem.setAttribute('id','list-item')
-  left.setAttribute('id','left-list-item')
-  right.setAttribute('id','right-list-item')
-  checkBox.setAttribute('id','checkbox')
-  edit.setAttribute('id','edit')
-  dlt.setAttribute('id','delete')
-  dlt.setAttribute('onclick','this.parentNode.parentNode.remove()')
-  listItem.setAttribute('data-num',`${num}`)
-  num +=1
-
-
-  left.appendChild(checkBox)
-  left.appendChild(title)
-
-  right.appendChild(description)
-  right.appendChild(date)
-  right.appendChild(priority)
-  right.appendChild(edit)
-  right.appendChild(dlt)
-
-  listItem.appendChild(left)
-  listItem.appendChild(right)
-
-  list.appendChild(listItem)
-  }
-
-function editedValues(arr){
-  const title = arr[0].value
-  const longDetails = arr[1].value
-  const date = arr[2].value
-  const priority = findChecked([...arr])
-
-  return [title,longDetails,date,priority]
 }
 
 function findChecked(arr){
@@ -190,4 +93,4 @@ function findChecked(arr){
   }
 }
 
-checkForEdit()
+const toDoListing = new Library()
