@@ -132,3 +132,25 @@ footer {
   margin: auto;
 
 }
+
+#descriptionOfItem {
+  width: 300px;
+  height: 200px;
+  border: 2px solid black;
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  margin: auto;
+}
+
+#describe {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 200px;
+}

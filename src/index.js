@@ -1,5 +1,8 @@
 const addBtn = document.getElementById('add-button')
 const addForm = document.getElementById('newListing')
+const list = document.querySelector('.list')
+const formElement = document.getElementById("form")
+let detailBtn = [...document.querySelectorAll('#details')]
 
 class Library {
   constructor(){
@@ -11,11 +14,11 @@ class Library {
   }
 
   getListing(id) {
-    return this.listing.find((todo) => todo.id === id)
+    return this.listing.find((todo) => todo.getId() == id)
   }
 
   removeListing(id) {
-    return this.listing.filter((todo) => todo.id !== id)
+    return this.listing.filter((todo) => todo.getId() != id)
   }
 }
 
@@ -71,18 +74,22 @@ addBtn.addEventListener('click', () => {
 
 addForm.addEventListener('submit', (e) => {
   e.preventDefault()
-  createListing(e.target)
+  createHTMLListing(editValues(e.target))
+  addForm.classList.add('invisible')
+  //reset form
+  formElement.reset()  
+  detailBtn = [...document.querySelectorAll('#details')]
+  details()
 })
 
-function createListing(values){
+function editValues(values){
   const title = values[0].value
   const description = values[1].value
   const date = values[2].value
   const priority = findChecked([...values])
+  const id = Date.now()
 
-  const activity = new Listing(title,description,date,priority,Date.now())
-  toDoListing.addListing(activity)
-
+  return [title,description,date,priority,id] 
 }
 
 function findChecked(arr){
@@ -93,4 +100,77 @@ function findChecked(arr){
   }
 }
 
+function createHTMLListing([title,description,date,priority,id]) {
+  const listItem = document.createElement('div')
+  listItem.setAttribute("id","list-item")
+  listItem.setAttribute("data-num",`${id}`)
+  
+  const leftList = document.createElement('div')
+  leftList.setAttribute("id","left-list-item")
+  
+  const rightList = document.createElement('div')
+  rightList.setAttribute("id","right-list-item")
+
+  const checkbox = document.createElement('div')
+  checkbox.setAttribute("id","checkbox")
+  checkbox.textContent = "[]"
+
+  const titleDiv = document.createElement('div')
+  titleDiv.setAttribute('id','title')
+  titleDiv.textContent = `${title}`
+
+  const details = document.createElement('div')
+  details.setAttribute('id','details')
+  details.textContent = "DETAILS"
+
+  const dateItem = document.createElement('div')
+  dateItem.setAttribute("id","date-item")
+  dateItem.textContent = `${date}`
+
+  const priorityItem = document.createElement('div')
+  priorityItem.setAttribute('id','priority-item')
+  priorityItem.textContent = `${priority}`
+  
+  const edit = document.createElement('div')
+  edit.setAttribute('id','edit')
+  edit.textContent = "E"
+
+  const deleteItem = document.createElement('div')
+  deleteItem.setAttribute('id','delete')
+  deleteItem.setAttribute('onclick','this.parentNode.parentNode.remove()')
+  deleteItem.textContent = "D"
+
+  leftList.appendChild(checkbox)
+  leftList.appendChild(titleDiv)
+
+  rightList.appendChild(details)
+  rightList.appendChild(dateItem)
+  rightList.appendChild(priorityItem)
+  rightList.appendChild(edit)
+  rightList.appendChild(deleteItem)
+
+  listItem.appendChild(leftList)
+  listItem.appendChild(rightList)
+
+  list.appendChild(listItem)
+
+  toDoListing.addListing(new Listing(title,description,date,priority,id))
+}
+
+function details() {
+  detailBtn.forEach(btn => {
+    btn.addEventListener('click',(e) => {
+      const idNum = e.target.parentNode.parentNode.getAttribute('data-num')
+      const detail = toDoListing.getListing(idNum).getDetail()
+
+      const detailDiv = document.querySelector('#descriptionOfItem')
+      detailDiv.firstChild.textContent = `${detail}`
+      detailDiv.classList.remove('invisible')
+    })
+  })
+}
+
 const toDoListing = new Library()
+const firstListing = new Listing("swim","About to go swim with friends", "2023-10-20", "Low","0")
+toDoListing.addListing(firstListing)
+details()

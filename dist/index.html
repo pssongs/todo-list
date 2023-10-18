@@ -24,11 +24,12 @@
               </div>
             </div>             
           </div>          
+          <div id="descriptionOfItem" class="invisible" onclick="this.classList.add('invisible')"><div id="describe"></div></div>
         <div class="list">
           <div id="list-item" data-num="0">
             <div id="left-list-item">
               <div id="checkbox">[]</div>
-              <div id="item-description">swim</div>
+              <div id="title">swim</div>
             </div>
             <div id="right-list-item">
               <div id="details">DETAILS</div>
@@ -60,29 +61,8 @@
           </div>
           <input type="submit" id="submitbtn">
         </form>
-        <div id="close">X</div>
+        <div id="close" onclick="this.parentNode.classList.add('invisible')">X</div>
       </div>
-      <div id="editDiv" class="invisible">
-        <form id="editForm">
-          <input type="text" placeholder="Title" id="title" name="title" required>
-          <input type="text" placeholder="Description" id="description" name="description" required>
-          <input type="date" id="date" name="date" required>
-          <div>
-            <input type="radio" id="low" name="priority" value="Low"  required>
-            <label for="low">Low</label>
-          </div>
-          <div>
-            <input type="radio" id="mid" name="priority" value="Mid">
-            <label for="mid">Mid</label>
-          </div>
-          <div>
-            <input type="radio" id="high" name="priority" value="High">
-            <label for="high">High</label>
-          </div>
-          <input type="submit" id="editSubmitBtn">
-        </form>
-        <div id="editClose">X</div>
-      </div>
-    <script src="main.js"></script>
+    <script src="../src/index.js"></script>
   </body>
 </html>
