@@ -1,8 +1,12 @@
 const addBtn = document.getElementById('add-button')
-const addForm = document.getElementById('newListing')
+const form = document.getElementById('newListing')
 const list = document.querySelector('.list')
 const formElement = document.getElementById("form")
 let detailBtn = [...document.querySelectorAll('#details')]
+let editBtn = [...document.querySelectorAll('#edit')]
+const closeForm = document.getElementById('close')
+let currentBtn
+let editId
 
 class Library {
   constructor(){
@@ -69,20 +73,37 @@ class Listing{
 }
 
 addBtn.addEventListener('click', () => {
-  addForm.classList.remove('invisible')
+  showForm()
+  currentBtn = 0
 })
 
-addForm.addEventListener('submit', (e) => {
+form.addEventListener('submit', (e) => {
   e.preventDefault()
-  createHTMLListing(editValues(e.target))
-  addForm.classList.add('invisible')
-  //reset form
-  formElement.reset()  
+  const cleaned = cleanValues(e.target)
+  const htmlListing = createHTMLListing(cleaned) 
+  addingListingToLib(cleaned)
+  closeTheForm()
+  //edit form mode
+  if (currentBtn){
+    toDoListing.removeListing(editId)
+    document.querySelector(`[data-num="${editId}"]`).replaceWith(htmlListing)
+  } else //add form mode 
+  {
+    list.appendChild(htmlListing)
+  }
+
   detailBtn = [...document.querySelectorAll('#details')]
+  editBtn = [...document.querySelectorAll('#edit')]
   details()
+  editBtns()
 })
 
-function editValues(values){
+function addingListingToLib([title,description,date,priority,id]) {
+  const add = new Listing(title,description,date,priority,id)
+  toDoListing.addListing(add)
+}
+
+function cleanValues(values){
   const title = values[0].value
   const description = values[1].value
   const date = values[2].value
@@ -152,16 +173,13 @@ function createHTMLListing([title,description,date,priority,id]) {
   listItem.appendChild(leftList)
   listItem.appendChild(rightList)
 
-  list.appendChild(listItem)
-
-  toDoListing.addListing(new Listing(title,description,date,priority,id))
+  return listItem
 }
 
 function details() {
   detailBtn.forEach(btn => {
     btn.addEventListener('click',(e) => {
-      const idNum = e.target.parentNode.parentNode.getAttribute('data-num')
-      const detail = toDoListing.getListing(idNum).getDetail()
+      const detail = toDoListing.getListing(e.target.parentNode.parentNode.getAttribute('data-num')).getDetail()
 
       const detailDiv = document.querySelector('#descriptionOfItem')
       detailDiv.firstChild.textContent = `${detail}`
@@ -170,7 +188,29 @@ function details() {
   })
 }
 
+function editBtns() {
+  editBtn.forEach(btn => {
+    btn.addEventListener('click',(e) => {
+      currentBtn = 1
+      editId = e.target.parentNode.parentNode.getAttribute('data-num')
+      showForm()
+    })
+  }
+
+  )
+}
+
+function closeTheForm() {
+  form.classList.add('invisible')
+  formElement.reset()  
+}
+
+function showForm() {
+  form.classList.remove('invisible')
+}
+
 const toDoListing = new Library()
 const firstListing = new Listing("swim","About to go swim with friends", "2023-10-20", "Low","0")
 toDoListing.addListing(firstListing)
 details()
+editBtns()
