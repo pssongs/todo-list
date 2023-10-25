@@ -4,9 +4,9 @@ const list = document.querySelector('.list')
 const formElement = document.getElementById("form")
 let detailBtn = [...document.querySelectorAll('#details')]
 let editBtn = [...document.querySelectorAll('#edit')]
-const closeForm = document.getElementById('close')
 let currentBtn
 let editId
+const closebtn = document.getElementById('close')
 
 class Library {
   constructor(){
@@ -81,7 +81,6 @@ form.addEventListener('submit', (e) => {
   e.preventDefault()
   const cleaned = cleanValues(e.target)
   const htmlListing = createHTMLListing(cleaned) 
-  addingListingToLib(cleaned)
   closeTheForm()
   //edit form mode
   if (currentBtn){
@@ -122,6 +121,7 @@ function findChecked(arr){
 }
 
 function createHTMLListing([title,description,date,priority,id]) {
+  addingListingToLib([title,description,date,priority,id])
   const listItem = document.createElement('div')
   listItem.setAttribute("id","list-item")
   listItem.setAttribute("data-num",`${id}`)
@@ -134,7 +134,6 @@ function createHTMLListing([title,description,date,priority,id]) {
 
   const checkbox = document.createElement('div')
   checkbox.setAttribute("id","checkbox")
-  checkbox.textContent = "[]"
 
   const titleDiv = document.createElement('div')
   titleDiv.setAttribute('id','title')
@@ -154,7 +153,7 @@ function createHTMLListing([title,description,date,priority,id]) {
   
   const edit = document.createElement('div')
   edit.setAttribute('id','edit')
-  edit.textContent = "E"
+  edit.textContent = "Edit"
 
   const deleteItem = document.createElement('div')
   deleteItem.setAttribute('id','delete')
@@ -199,6 +198,11 @@ function editBtns() {
 
   )
 }
+
+closebtn.addEventListener('click', (e) => {
+  e.preventDefault()
+  closeTheForm()
+})
 
 function closeTheForm() {
   form.classList.add('invisible')

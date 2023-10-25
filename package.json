@@ -1,8 +1,8 @@
 {
   "name": "todo-list",
   "version": "1.0.0",
-  "description": "",
   "main": ".src/index.js",
+  
   "dependencies": {
     "acorn": "^8.10.0",
     "acorn-import-assertions": "^1.9.0",
@@ -87,6 +87,7 @@
     "wildcard": "^2.0.1"
   },
   "devDependencies": {
+    "eslint": "^8.52.0",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4"
   },
@@ -103,5 +104,6 @@
   "bugs": {
     "url": "https://github.com/pssongs/todo-list/issues"
   },
-  "homepage": "https://github.com/pssongs/todo-list#readme"
+  "homepage": "https://github.com/pssongs/todo-list#readme",
+  "description": ""
 }
